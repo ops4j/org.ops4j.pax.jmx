@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.ops4j</groupId>
+        <artifactId>master</artifactId>
+        <version>2.0.0</version>
+    </parent>
+
+    <groupId>org.ops4j.pax</groupId>
+    <artifactId>jmx</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+
+
+    <packaging>bundle</packaging>
+    <name>OSGi JMX Management Model</name>
+    <description>OSGi JMX Management Model Implementation</description>
+
+    <url>http://team.ops4j.org/wiki/display/paxjmx/</url>
+
+    <issueManagement>
+        <system>jira</system>
+        <url>http://issues.ops4j.org/jira/browse/PAXJMX</url>
+    </issueManagement>
+
+    <properties>
+        <release-paxjmx-altGitURL>scm:git:git@github.com:ops4j/org.ops4j.pax.jmx.git
+        </release-paxjmx-altGitURL>
+    </properties>
+
+    <scm>
+        <connection>scm:git:git@github.com:ops4j/org.ops4j.pax.jmx.git</connection>
+        <developerConnection>${release-paxjmx-altGitURL}</developerConnection>
+        <url>http://github.com/ops4j/org.ops4j.pax.jmx/tree/master</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>dpishchukhin</id>
+            <name>Dmytro Pishchukhin</name>
+            <email>dmytro.pishchukhin@gmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+            <timezone>UTC+1</timezone>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.enterprise</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.5</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>2.0.1</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Export-Package>
+                            org.ops4j.pax.jmx.service.monitor;version=1.0
+                        </Export-Package>
+                        <Import-Package>
+                            javax.management*,
+                            org.osgi.framework*,
+                            org.osgi.jmx*,
+                            org.osgi.service*;resolution:=optional,
+                            org.osgi.util*
+                        </Import-Package>
+                        <Bundle-Activator>org.ops4j.pax.jmx.Activator</Bundle-Activator>
+                        <Bundle-SymbolicName>${project.groupId}.${project.artifactId};singleton:=true
+                        </Bundle-SymbolicName>
+                        <Bundle-RequiredExecutionEnvironment>J2SE-1.5</Bundle-RequiredExecutionEnvironment>
+                        <_removeheaders>
+                            Bnd-LastModified, Built-By, Private-Package,
+                            Tool, Build-Jdk, Include-Resource, Ignore-Package
+                        </_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <distributionManagement>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <name>Nexus Release Repository</name>
+            <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+</project>
